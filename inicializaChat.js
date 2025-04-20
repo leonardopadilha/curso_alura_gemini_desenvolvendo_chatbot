@@ -1,10 +1,49 @@
 import "dotenv/config";
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, FunctionDeclarationSchemaType } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+// Functions Calling
+const funcoes = {
+  taxaJurosParcelamento: ({ value }) => {
+    const meses = typeof value == "string" ? parseInt(value) : value
+
+    if(meses <= 6) {
+      return 3
+    } else if (meses <= 12) {
+      return 5
+    } else if (meses <= 24) {
+      return 7
+    }
+  }
+}
+
+const tools = [{
+  functionDeclarations: [
+    {
+      name: 'taxaJurosParcelamento',
+      description: 'Retorna a taxa de juros para parcelamento baseado na quantidade de meses',
+      parameters: {
+        type: FunctionDeclarationSchemaType.OBJECT,
+        properties: {
+          value: { type: FunctionDeclarationSchemaType.NUMBER }
+        },
+        required: ['value']
+      }
+    }
+  ]
+}]
+
+const model = genAI.getGenerativeModel(
+  { 
+    model: "gemini-2.0-flash",
+    tools 
+  },
+  {
+    apiVersion: "v1beta"
+  }
+);
 
 let chat
 function inicializaChat() {
