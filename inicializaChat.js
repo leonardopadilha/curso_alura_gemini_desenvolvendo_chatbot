@@ -22,27 +22,23 @@ const funcoes = {
 const tools = [{
   functionDeclarations: [
     {
-      name: 'taxaJurosParcelamento',
-      description: 'Retorna a taxa de juros para parcelamento baseado na quantidade de meses',
+      name: "taxaJurosParcelamento",
+      description: "Retorna a taxa de juros para parcelamento baseado na quantidade de meses",
       parameters: {
         type: FunctionDeclarationSchemaType.OBJECT,
         properties: {
           value: { type: FunctionDeclarationSchemaType.NUMBER }
         },
-        required: ['value']
+        required: ["value"]
       }
     }
   ]
 }]
 
 const model = genAI.getGenerativeModel(
-  { 
-    model: "gemini-2.0-flash",
-    tools 
-  },
-  {
-    apiVersion: "v1beta"
-  }
+  { model: "gemini-2.0-flash", tools },
+  { apiVersion: "v1beta"
+}
 );
 
 let chat
@@ -68,5 +64,6 @@ function inicializaChat() {
 
 export {
   chat,
+  funcoes,
   inicializaChat
 }
