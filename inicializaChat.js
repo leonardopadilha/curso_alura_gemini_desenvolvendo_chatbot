@@ -51,7 +51,7 @@ function inicializaChat() {
       },
       {
         role: "model",
-        parts: [{ text: "Sua primeira mensagem sempre deve ser: Olá! Obrigado por entrar em contato com o Jornada Viagens. Antes de responder suas dúvidas, preciso do seu nome e endereço de e-mail." }],
+        parts: [{ text: "Olá! Obrigado por entrar em contato com o Jornada Viagens. Antes de responder suas dúvidas, preciso do seu nome e endereço de e-mail." }],
       },
     ],
   

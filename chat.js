@@ -1,9 +1,21 @@
 
+import { incorporarDocumentos, incorporarPergunta } from './embedding.js';
 import { chat, funcoes } from './inicializaChat.js'
+
+const documentos = await incorporarDocumentos(
+  ["A política de cancelamento é de 30 dias antes da viagem, caso contrário, não faremos o reembolso",
+   "Viagem para a Disney 6 dias, R$ 20.000,00 - Viagem para a Disney 10 dias, R$ 25.000,00"
+  ]
+)
+
+//console.log(documentos)
+
 
 export async function executaChat(mensagem) {
   //console.log("Tamanho do histórico: " + (await chat.getHistory()).length)
-  const result = await chat.sendMessage(mensagem);
+  let doc = await incorporarPergunta(mensagem, documentos)
+  let prompt = mensagem + " talvez esse trecho te ajude a formular a resposta " + doc.text
+  const result = await chat.sendMessage(prompt);
   const response = await result.response;
   
   const content = response.candidates[0].content
