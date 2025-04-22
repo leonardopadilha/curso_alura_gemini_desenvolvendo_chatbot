@@ -26,6 +26,7 @@ export async function incorporarDocumentos(docTexts) {
   return embeddings.map((e, i) => ({ text: docTexts[i], values: e.values }));
 }
 
+
 export async function leArquivos(arquivos) {
     try {
         const documentos = [];
@@ -47,6 +48,7 @@ function euclideanDistance(a, b) {
   }
   return Math.sqrt(sum);
 }
+
 
 export async function incorporarPergunta(queryText, docs) {
   const queryValues = await embedRetrievalQuery(queryText);

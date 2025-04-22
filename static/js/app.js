@@ -25,10 +25,10 @@ async function enviarMensagem() {
         const response = await fetch('http://localhost:3000/chat', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({mensagem: mensagem})
-        })
+            body: JSON.stringify({'mensagem': mensagem })
+        });
 
         const novaBolha = criaBolhaUsuario();
         novaBolha.innerHTML = mensagem;
@@ -38,13 +38,14 @@ async function enviarMensagem() {
         chat.appendChild(novaBolhaBot);
         vaiParaFinalDoChat();
 
-        const resposta = await response.json()
+        const resposta = await response.json();
         novaBolhaBot.innerHTML = resposta.response;
         vaiParaFinalDoChat();
 
-    } catch(erro) {
-        alert(`Ocorreu o seguinte erro: ${erro}`)
+    } catch (error) {
+        alert(error);
     }
+ 
 }
 
 function criaBolhaUsuario() {
